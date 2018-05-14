@@ -1,5 +1,4 @@
 class Deck:
-
     card_list = []
 
     def __init__(self, card_list):
@@ -39,10 +38,11 @@ class Deck:
         return 0
 
     def is_royal_flush(self):
+
         return False
 
-    def is_staight_flush(self):
 
+    def is_staight_flush(self):
         return False
 
     def is_four_of_a_kind(self):
@@ -69,10 +69,14 @@ class Deck:
         return False
 
     def is_one_pair(self):
+        for i in range(0, len(self.card_list)):
+            for j in range(i + 1, len(self.card_list)):
+                if self.card_list[i].get_value() == self.card_list[j].get_value():
+                    return True
         return False
 
     def is_high_card(self):
-        return False
+        return True
 
 
 
