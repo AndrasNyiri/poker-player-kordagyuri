@@ -1,5 +1,4 @@
 from card import Card
-import copy
 
 
 class Deck:
@@ -24,8 +23,8 @@ class Deck:
         if self.is_flush():
             return 60
 
-        # if self.is_straight():
-        #    return 50
+        if self.is_straight():
+            return 50
 
         if self.is_three_of_a_kind():
             return 40
@@ -42,13 +41,15 @@ class Deck:
         return 0
 
     def is_royal_flush(self):
-        if self.is_flush() and self.is_straight():
-            return True
-        else:
-            return False
+        if self.sort_hand(self.card_list)[0].get_value() == 10 and self.is_staight_flush() != 0:
+            return self.is_staight_flush()
+        return 0
+
 
     def is_staight_flush(self):
-        return False
+        if self.is_straight() != 0 and self.is_flush() != 0:
+            return self.is_flush()
+        return 0
 
     def is_four_of_a_kind(self):
         value = 0
@@ -82,11 +83,32 @@ class Deck:
     def is_straight(self):
         sorted_values = self.sort_hand(self.card_list)
         for i in range(0, len(sorted_values)):
+            value = 0
+            count = 0
             for j in range(i + 1, len(sorted_values)):
-                if (sorted_values[j - 1].get_value()) + 1 == sorted_values[j].getvalue():
-                    return True
+                if (sorted_values[j-1].get_value()) + 1 == sorted_values[j].get_value():
+                    count += 1
+                    value += sorted_values[j - 1].get_value()
+                    if count == 4:
+                        return value
 
-        return False
+        for i in range(len(sorted_values)):
+            if sorted_values[i].get_value() == 14:
+                sorted_values[i].value = 1
+
+        sorted_values = self.sort_hand(sorted_values)
+
+        for i in range(0, len(sorted_values)):
+            value = 0
+            count = 0
+            for j in range(i + 1, len(sorted_values)):
+                if (sorted_values[j-1].get_value()) + 1 == sorted_values[j].get_value():
+                    count += 1
+                    value += sorted_values[j - 1].get_value()
+                    if count == 4:
+                        return value
+
+        return 0
 
     def is_three_of_a_kind(self):
         self.sort()
@@ -133,16 +155,20 @@ class Deck:
         self.sort()
         return self.card_list[0].get_value()
 
-    def sort_hand(self, card_list):
-        card_list_clone = card_list.copy()
+    def sort_hand(self, list_):
+        if list is None:
+            card_list_clone = list(self.card_list)
+        else:
+            card_list_clone = list(list_)
+
         iteration = 0
         while iteration < len(card_list_clone):
             for i in range(len(card_list_clone) - 1):
-                if card_list_clone[i].get_value() < card_list_clone[i + 1].get_value():
+                if card_list_clone[i].get_value() > card_list_clone[i+1].get_value():
                     temp = card_list_clone[i]
-                    card_list_clone[i] = card_list_clone[i + 1]
-                    card_list_clone[i + 1] = temp
-                iteration += 1
+                    card_list_clone[i] = card_list_clone[i+1]
+                    card_list_clone[i+1] = temp
+            iteration += 1
         return card_list_clone
 
     def sort(self):
