@@ -39,13 +39,10 @@ class Deck:
         return 0
 
     def is_royal_flush(self):
-
-        return False
-
-    def is_royal_flush(self):
         return False
 
     def is_staight_flush(self):
+
         return False
 
     def is_four_of_a_kind(self):
@@ -55,7 +52,12 @@ class Deck:
         return False
 
     def is_flush(self):
-        return False
+        result = True
+        for i in range(1, len(self.card_list)):
+            if self.card_list[0].get_suit() != self.card_list[i].get_suit():
+                result = False
+
+        return result
 
     def is_straight(self):
         return False
@@ -71,6 +73,9 @@ class Deck:
 
     def is_high_card(self):
         return False
+
+
+
 
 if __name__ == '__main__':
     Deck()
