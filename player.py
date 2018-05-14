@@ -34,7 +34,7 @@ class Player:
 
             ranking = deck.get_ranking()
             max_rank = 60 * 30939.0
-
+            print ranking / max_rank
             return max(int(ranking / max_rank * stack), game_state["minimum_raise"])
 
         except:
