@@ -33,7 +33,7 @@ class Player:
                     return game_state["current_buy_in"]
 
             ranking = deck.get_ranking()
-            max_rank = 60 * 30939.0
+            max_rank = 60 * 30.0
             print ranking / max_rank
             return max(int(ranking / max_rank * stack), game_state["minimum_raise"])
 
