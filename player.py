@@ -18,6 +18,8 @@ class Player:
 
             card_list_raw.append(game_state["community_cards"])
 
+            print card_list_raw
+
             card_list = []
             for card in card_list_raw:
                 card_list.append(Card(card["suit"], card["rank"], True))
