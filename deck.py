@@ -38,8 +38,10 @@ class Deck:
         return 0
 
     def is_royal_flush(self):
-
-        return False
+        if self.is_flush() and self.is_straight():
+            return True
+        else:
+            return False
 
 
     def is_staight_flush(self):
@@ -73,7 +75,14 @@ class Deck:
         return 0
 
     def is_straight(self):
+        sorted_values = self.sort_hand(self.card_list)
+        for i in range(0, len(sorted_values)):
+            for j in range(i + 1, len(sorted_values)):
+                if (sorted_values[j-1].get_value()) + 1 == sorted_values[j].getvalue():
+                    return True
+
         return False
+
 
     def is_three_of_a_kind(self):
         return False
@@ -90,6 +99,18 @@ class Deck:
 
     def is_high_card(self):
         return True
+
+    def sort_hand(self, card_list):
+        card_list_clone = card_list.copy()
+        iteration = 0
+        while iteration < len(card_list_clone):
+            for i in range(len(card_list_clone)-1):
+                if card_list_clone[i].get_value() < card_list_clone[i+1].get_value():
+                    temp = card_list_clone[i]
+                    card_list_clone[i] = card_list_clone [i+1]
+                    card_list_clone[i+1] = temp
+                iteration += 1
+        return card_list_clone
 
 
 
