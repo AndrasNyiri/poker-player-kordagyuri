@@ -16,11 +16,11 @@ class Card:
         "A": 14,
     }
 
-    def __init__(self, card_code, owner):
+    def __init__(self, card_code, is_mine_bool):
         self.card_code = card_code
         self.suit = card_code[0]
         self.value = self.__card_values[card_code[1]]
-        self.owner = owner
+        self.is_mine_bool = is_mine_bool
 
     def get_value(self):
         return self.value
@@ -31,5 +31,5 @@ class Card:
     def get_card_code(self):
         return self.card_code
 
-    def get_owner(self):
-        return self.owner
+    def is_mine(self):
+        return self.is_mine_bool
