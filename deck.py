@@ -46,18 +46,31 @@ class Deck:
         return False
 
     def is_four_of_a_kind(self):
-        return False
+        value = 0
+        for i in range(len(self.card_list)):
+            same_count = 0
+            for j in range(len(self.card_list)):
+                if self.card_list[i].get_value() == self.card_list[j].get_value():
+                    same_count += 1
+                    value += self.card_list[j].get_value()
+            if same_count == 4:
+                return value
+        return 0
 
     def is_full_house(self):
         return False
 
     def is_flush(self):
-        result = True
-        for i in range(1, len(self.card_list)):
-            if self.card_list[0].get_suit() != self.card_list[i].get_suit():
-                result = False
+        value = 0
+        count = 0
+        for i in range(len(self.card_list)):
+            if self.card_list[0].get_suit() == self.card_list[i].get_suit():
+                value += self.card_list[i].get_value()
+                count += 1
 
-        return result
+        if count == 5:
+            return value
+        return 0
 
     def is_straight(self):
         return False
