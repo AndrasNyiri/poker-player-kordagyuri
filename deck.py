@@ -75,13 +75,18 @@ class Deck:
         return 0
 
     def is_straight(self):
-        sorted_values = self.sort_hand(self.card_list)
+        sorted_values = self.sort_hand()
+        count = 5
         for i in range(0, len(sorted_values)):
+            value = 0
             for j in range(i + 1, len(sorted_values)):
-                if (sorted_values[j-1].get_value()) + 1 == sorted_values[j].getvalue():
-                    return True
+                if (sorted_values[j-1].get_value()) + 1 == sorted_values[j].get_value():
+                    count += 1
+                    value += sorted_values[j - 1].get_value()
+                    if count == 5:
+                        return value
 
-        return False
+        return 0
 
 
     def is_three_of_a_kind(self):
@@ -100,16 +105,16 @@ class Deck:
     def is_high_card(self):
         return True
 
-    def sort_hand(self, card_list):
-        card_list_clone = card_list.copy()
+    def sort_hand(self):
+        card_list_clone = list(self.card_list)
         iteration = 0
         while iteration < len(card_list_clone):
-            for i in range(len(card_list_clone)-1):
-                if card_list_clone[i].get_value() < card_list_clone[i+1].get_value():
+            for i in range(len(card_list_clone) - 1):
+                if card_list_clone[i].get_value() > card_list_clone[i+1].get_value():
                     temp = card_list_clone[i]
-                    card_list_clone[i] = card_list_clone [i+1]
+                    card_list_clone[i] = card_list_clone[i+1]
                     card_list_clone[i+1] = temp
-                iteration += 1
+            iteration += 1
         return card_list_clone
 
 
