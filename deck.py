@@ -9,36 +9,35 @@ class Deck:
 
     def get_ranking(self):
         if self.is_royal_flush():
-            return 100
+            return self.is_royal_flush() * 30939
 
         if self.is_staight_flush():
-            return 90
+            return self.is_staight_flush() * 3589
 
         if self.is_four_of_a_kind():
-            return 80
+            return self.is_four_of_a_kind() * 594
 
         if self.is_full_house():
-            return 70
+            return self.is_full_house() * 37.5
 
         if self.is_flush():
-            return 60
+            return self.is_flush() * 32.1
 
         if self.is_straight():
-            return 50
+            return self.is_straight() * 20.6
 
         if self.is_three_of_a_kind():
-            return 40
+            return self.is_three_of_a_kind() * 19.7
 
         if self.is_two_pairs():
-            return 30
+            return self.is_two_pairs() * 3.26
 
         if self.is_one_pair():
-            return 20
+            return self.is_one_pair() * 1.28
 
         if self.is_high_card():
-            return 10
+            return self.is_high_card() * 1
 
-        return 0
 
     def is_royal_flush(self):
         if self.sort_hand(self.card_list)[0].get_value() == 10 and self.is_staight_flush() != 0:
