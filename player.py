@@ -19,7 +19,6 @@ class Player:
             card_list_raw.extend(game_state["community_cards"])
 
 
-            print card_list_raw
 
             card_list = []
             for card in card_list_raw:
@@ -29,11 +28,12 @@ class Player:
             if len(card_list) == 2:
                 if deck.is_one_pair():
                     return game_state["current_buy_in"] + game_state["minimum_raise"]
-                if (abs(card_list[0].get_value() - card_list[1].get_value()) < 5) and (card_list[0].get_value() > 10 or card_list[1].get_value() > 10):
+                if (abs(card_list[0].get_value() - card_list[1].get_value()) < 5) or (card_list[0].get_value() > 10 or card_list[1].get_value() > 10):
                     return game_state["current_buy_in"]
 
             ranking = deck.get_ranking()
             max_rank = 60 * 30.0
+            print card_list
             print ranking / max_rank
             return max(int(ranking / max_rank * stack), game_state["minimum_raise"])
 
