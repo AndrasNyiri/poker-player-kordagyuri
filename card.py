@@ -16,10 +16,9 @@ class Card:
         "A": 14,
     }
 
-    def __init__(self, card_code, is_mine_bool):
-        self.card_code = card_code
-        self.suit = card_code[0]
-        self.value = self.__card_values[card_code[1:]]
+    def __init__(self, suit, rank, is_mine_bool):
+        self.suit = suit
+        self.value = self.__card_values[rank]
         self.is_mine_bool = is_mine_bool
 
     def get_value(self):
@@ -27,9 +26,6 @@ class Card:
 
     def get_suit(self):
         return self.suit
-
-    def get_card_code(self):
-        return self.card_code
 
     def is_mine(self):
         return self.is_mine_bool
