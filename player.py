@@ -16,7 +16,7 @@ class Player:
                     card_list_raw = person["hole_cards"]
                     stack = person["stack"]
 
-            card_list_raw.append(game_state["community_cards"])
+            card_list_raw.extend(game_state["community_cards"])
 
             print card_list_raw
 
