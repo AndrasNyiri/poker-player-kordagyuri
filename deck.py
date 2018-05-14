@@ -1,6 +1,3 @@
-from card import Card
-
-
 class Deck:
     card_list = []
 
@@ -44,8 +41,6 @@ class Deck:
 
         return False
 
-    def is_royal_flush(self):
-        return False
 
     def is_staight_flush(self):
         return False
@@ -57,7 +52,12 @@ class Deck:
         return False
 
     def is_flush(self):
-        return False
+        result = True
+        for i in range(1, len(self.card_list)):
+            if self.card_list[0].get_suit() != self.card_list[i].get_suit():
+                result = False
+
+        return result
 
     def is_straight(self):
         return False
@@ -79,4 +79,8 @@ class Deck:
         return True
 
 
+
+
+if __name__ == '__main__':
+    Deck()
 
