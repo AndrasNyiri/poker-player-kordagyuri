@@ -32,7 +32,7 @@ class Player:
                     return game_state["current_buy_in"]
 
             ranking = deck.get_ranking()
-            max_rank = 60 * 30.0
+            max_rank = 30.0
             for card in card_list:
                 print str(card.get_suit()) + " " + str(card.get_value())
             print ranking / max_rank
