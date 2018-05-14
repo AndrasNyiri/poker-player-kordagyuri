@@ -33,7 +33,8 @@ class Player:
 
             ranking = deck.get_ranking()
             max_rank = 60 * 30.0
-            print card_list
+            for card in card_list:
+                print card.get_suit() + " " + card.get_value()
             print ranking / max_rank
             return max(int(ranking / max_rank * stack), game_state["minimum_raise"])
 
