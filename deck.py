@@ -1,4 +1,5 @@
 from card import Card
+import copy
 
 
 class Deck:
@@ -23,8 +24,8 @@ class Deck:
         if self.is_flush():
             return 60
 
-        if self.is_straight():
-            return 50
+        # if self.is_straight():
+        #    return 50
 
         if self.is_three_of_a_kind():
             return 40
@@ -62,7 +63,9 @@ class Deck:
         return 0
 
     def is_full_house(self):
-        return False
+        if self.is_two_pairs() and self.is_three_of_a_kind():
+            return self.is_two_pairs() + self.is_three_of_a_kind()
+        return 0
 
     def is_flush(self):
         value = 0
@@ -80,14 +83,23 @@ class Deck:
         sorted_values = self.sort_hand(self.card_list)
         for i in range(0, len(sorted_values)):
             for j in range(i + 1, len(sorted_values)):
-                if (sorted_values[j-1].get_value()) + 1 == sorted_values[j].getvalue():
+                if (sorted_values[j - 1].get_value()) + 1 == sorted_values[j].getvalue():
                     return True
 
         return False
 
-
     def is_three_of_a_kind(self):
-        return False
+        self.sort()
+        value = 0
+        for i in range(len(self.card_list)):
+            same_count = 0
+            for j in range(len(self.card_list)):
+                if self.card_list[i].get_value() == self.card_list[j].get_value():
+                    same_count += 1
+                    value += self.card_list[j].get_value()
+            if same_count == 3:
+                return value
+        return 0
 
     def is_two_pairs(self):
         if not self.is_one_pair():
@@ -110,7 +122,7 @@ class Deck:
         return 0
 
     def is_one_pair(self):
-
+        self.sort()
         for i in range(0, len(self.card_list)):
             for j in range(i + 1, len(self.card_list)):
                 if self.card_list[i].get_value() == self.card_list[j].get_value():
@@ -118,31 +130,34 @@ class Deck:
         return 0
 
     def is_high_card(self):
-        return True
+        self.sort()
+        return self.card_list[0].get_value()
 
     def sort_hand(self, card_list):
         card_list_clone = card_list.copy()
         iteration = 0
         while iteration < len(card_list_clone):
-            for i in range(len(card_list_clone)-1):
-                if card_list_clone[i].get_value() < card_list_clone[i+1].get_value():
+            for i in range(len(card_list_clone) - 1):
+                if card_list_clone[i].get_value() < card_list_clone[i + 1].get_value():
                     temp = card_list_clone[i]
-                    card_list_clone[i] = card_list_clone [i+1]
-                    card_list_clone[i+1] = temp
+                    card_list_clone[i] = card_list_clone[i + 1]
+                    card_list_clone[i + 1] = temp
                 iteration += 1
         return card_list_clone
+
+    def sort(self):
+        self.card_list.sort(key=lambda card: card.get_value(), reverse=True)
 
 
 if __name__ == '__main__':
     deckList = [
+        Card("S", "Q", True),
         Card("S", "A", True),
         Card("D", "A", True),
-        Card("H", "4", True),
+        Card("H", "A", True),
         Card("S", "Q", True),
         Card("H", "Q", True),
-        Card("S", "4", True)
     ]
     deck = Deck(deckList)
     deck.get_ranking()
-    print deck.is_one_pair()
-    print deck.is_two_pairs()
+    print deck.is_full_house()
