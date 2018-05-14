@@ -17,7 +17,7 @@ class Card:
     }
 
     def __init__(self, cardCode):
-        self.cardCode = ""
+        self.cardCode = cardCode
         self.suit = cardCode[0]
         self.value = self.__card_values[cardCode[1]]
 
@@ -26,3 +26,6 @@ class Card:
 
     def get_suit(self):
         return self.suit
+
+    def get_card_code(self):
+        return self.cardCode
